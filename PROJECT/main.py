@@ -23,3 +23,15 @@ if __name__ == "__main__":
     print("Spreadsheet Row Number:", project.getRowNum())
     print("Spreadsheet Column Number:", project.getColNum())
     print("Spreadsheet Cells:", project.getCells())
+
+
+# from SpreadSheet.usecases.SpreadSheetController import SpreadSheetController
+
+# if __name__ == "__main__":
+#     spreadsheetcontroller = SpreadSheetController()
+#     while True:
+        
+#         try:
+#             spreadsheetcontroller.showMenu()
+#         except Exception as Error:
+#             print(Error.message)
