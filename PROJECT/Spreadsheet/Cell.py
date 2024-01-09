@@ -5,6 +5,7 @@ from Spreadsheet.Content.FormulaContent import FormulaContent
 class Cell:
     def __init__(self, coordinate, value):
         self.coordinate = coordinate
+        self.content = None
         self.set_content(value)
         print(self.content)
         self.dependent_cells = set()
