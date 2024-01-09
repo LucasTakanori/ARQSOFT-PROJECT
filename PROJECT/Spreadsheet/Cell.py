@@ -1,35 +1,31 @@
-from Content.TextContent import TextContent
-from Content.NumberContent import NumberContent
-from Content.FormulaContent import FormulaContent
-
+from Spreadsheet.Content.TextContent import TextContent
+from Spreadsheet.Content.NumberContent import NumberContent
+from Spreadsheet.Content.FormulaContent import FormulaContent
 class Cell:
-    def __init__(self, row, col):
-        self.row = row
-        self.col = col
-        self.content = None
+    def __init__(self, coordinate, value):
+        self.coordinate = coordinate
+        self.set_content(value)
+        print(self.content)
+        self.dependent_cells = set()
 
-    def modify_Content(self, content_type, content_value):
-        if content_type == "text":
-            self.content = TextContent(content_value)
-        elif content_type == "number":
-            self.content = NumberContent(float(content_value))
-        elif content_type == "formula":
-            self.content = FormulaContent(content_value)
-        else: 
-            raise ValueError("Invalid content type, rewrite")
+    def set_content(self, text_input: str):
+        print(text_input)
+        try:
+            # Try converting the string to a float
+            # If successful, add Numbercontent
+            self.content = NumberContent(float(text_input))
+            print("buenas")
+        except ValueError:
+            # If conversion fails, it's not a numeric string
+            if text_input.startswith('='): # Check if it starts with '='
+                self.content = FormulaContent(text_input)
+                print("tetas")
+            else:# Otherwise, it's a regular string
+                self.content = TextContent(text_input)
+                print("culo") 
 
-    def get_content_value(self):
-        if self.content:
-            return self.content.getValue() # or use self.content.getTextValue() if we want the value as text 
-        return ""
+    def get_content(self):
+        return self.content
     
-    def get_content_type(self):
-        if self.content:
-            return self.content.typeOfContent()
-        return "Empty"
-    
-    def evaluate_formula(self, spreadsheet):
-        if isinstance(self.content, FormulaContent):
-            return self.content.evaluate(spreadsheet)
-        return None
-    
+    def __str__(self) -> str:
+        return str(self.content.get_value())

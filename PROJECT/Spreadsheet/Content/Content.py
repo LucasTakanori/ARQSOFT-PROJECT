@@ -1,23 +1,14 @@
 from abc import ABC, abstractmethod
 
 class Content(ABC):
-
-    def __init__(self, type, stringvalue):
+    def __init__(self, value):
         super().__init__()
-        self.type =type
-        self.textulvalue = stringvalue
+        self.value = value
     
     @abstractmethod
-    def getNumValue(self):
+    def get_value(self):
         pass
     
     @abstractmethod
-    def getTextValue(self):
+    def set_value(self, value):
         pass
-    
-    @abstractmethod
-    def getValue(self):
-        return self.textulvalue
-    
-    def typeOfContent(self):
-        return self.type
