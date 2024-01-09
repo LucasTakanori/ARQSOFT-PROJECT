@@ -1,6 +1,7 @@
 from Spreadsheet.Content.TextContent import TextContent
 from Spreadsheet.Content.NumberContent import NumberContent
 from Spreadsheet.Content.FormulaContent import FormulaContent
+
 class Cell:
     def __init__(self, coordinate, value):
         self.coordinate = coordinate
@@ -14,15 +15,15 @@ class Cell:
             # Try converting the string to a float
             # If successful, add Numbercontent
             self.content = NumberContent(float(text_input))
-            print("buenas")
+            print("number")
         except ValueError:
             # If conversion fails, it's not a numeric string
             if text_input.startswith('='): # Check if it starts with '='
                 self.content = FormulaContent(text_input)
-                print("tetas")
+                print("formula")
             else:# Otherwise, it's a regular string
                 self.content = TextContent(text_input)
-                print("culo") 
+                print("text") 
 
     def get_content(self):
         return self.content

@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
+
 from PROJECT.Spreadsheet.Content.TextContent import TextContent
 from Spreadsheet.Content.NumberContent import NumberContent
 from Spreadsheet.Content.FormulaContent import FormulaContent
-from PROJECT.Formula.FormulaEvaluator import FormulaEvaluator
+from Formula.FormulaEvaluator import FormulaEvaluator
 from Spreadsheet import Spreadsheet
 
 class SpreadsheetUI:
