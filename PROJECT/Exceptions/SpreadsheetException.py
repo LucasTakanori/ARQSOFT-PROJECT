@@ -1,4 +1,4 @@
-class TextContent(Exception):
+class SpreadSheetException(Exception):
 
     def __init__(self):
         Exception.__init__(self)

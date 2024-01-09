@@ -1,4 +1,4 @@
-from Controller.UserInterface import UserInterface
+from Controller.SpreadsheetController import SpreadSheetController
 
 if __name__ == "__main__":
     spreadsheetcontroller = SpreadSheetController()
@@ -8,7 +8,3 @@ if __name__ == "__main__":
             spreadsheetcontroller.showMenu()
         except Exception as Error:
             print(Error.message)
-        
-if __name__ == "__main__":
-    user = Main()
-    main.promptUser()
