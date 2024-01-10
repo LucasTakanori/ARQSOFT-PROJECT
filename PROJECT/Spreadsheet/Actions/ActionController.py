@@ -9,5 +9,5 @@ class ActionController:
     def load_file(self, filename, spreadsheet):
         self.loader
 
-    def save_file(self, filename, spreadsheet): 
-        self.saver.run_saver(filename, spreadsheet)
+    def save_file(self, spreadsheet): 
+        self.saver.run_saver(spreadsheet)

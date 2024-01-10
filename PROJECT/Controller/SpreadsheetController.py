@@ -56,8 +56,8 @@
 from Controller.UserInterface import UserInterface
 from collections import OrderedDict
 from Exceptions.SpreadsheetException import SpreadSheetException
-from Spreadsheet import Spreadsheet
-from Spreadsheet.Actions.Saver import Saver
+from Spreadsheet.Spreadsheet import Spreadsheet
+from Spreadsheet.Actions.ActionController import ActionController
 
 class SpreadSheetController:
     
@@ -67,6 +67,7 @@ class SpreadSheetController:
         self.command_history = " " #Cadena que almacena los comandos ejecutados 
         self.spreadSheet_created = False #Flag para verificar si se ha creado el spreadsheet correspondiente 
         self.spreadSheets = {}
+        self.actioncontroller = ActionController()
 
     def showMenu(self):
         command = self.UI.main_menu()
@@ -89,11 +90,15 @@ class SpreadSheetController:
         if command[0] == 'E':  # Edit
             self.command_history += 'E, '
             # Lógica para la acción de editar
-
+            
+        elif command[0] == 'Q':
+            print("Exiting the program. Goodbye!")
+            exit()
+        
         elif command[0] == 'S':  # Save
             self.command_history += 'S, '
             try:
-                self.saver.run_saver(self.spreadSheet, )
+                self.actioncontroller.save_file(self.spreadSheet)
             except:
                 raise SpreadSheetException("Spreadsheet can not be save it")
 
@@ -110,11 +115,10 @@ class SpreadSheetController:
             self.spreadSheet_state = True
             new_spreadsheet_name = input("Enter the name for the new spreadsheet: ")
             
-            # Verificar si ya existe un spreadsheet con el mismo nombre
-            if new_spreadsheet_name in self.spreadSheets:
+            # Verifica si ya existe un spreadsheet con el mismo nombre
+            if new_spreadsheet_name in self.spreadSheets and self.spreadSheet != None:
                 raise SpreadSheetException(f"A spreadsheet with the name '{new_spreadsheet_name}' already exists.")
             
-            # Crear una nueva instancia de la clase Spreadsheet y agregarla al diccionario de spreadsheets
             new_spreadsheet = Spreadsheet(new_spreadsheet_name)
             self.spreadSheets[new_spreadsheet_name] = new_spreadsheet
             print(f"Spreadsheet '{new_spreadsheet_name}' created successfully! ")
