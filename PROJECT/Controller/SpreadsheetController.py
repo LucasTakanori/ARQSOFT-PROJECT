@@ -58,6 +58,7 @@ from collections import OrderedDict
 from Exceptions.SpreadsheetException import SpreadSheetException
 from Spreadsheet.Spreadsheet import Spreadsheet
 from Spreadsheet.Actions.ActionController import ActionController
+import os
 
 class SpreadSheetController:
     
@@ -90,7 +91,7 @@ class SpreadSheetController:
         if command[0] == 'E':  # Edit
             self.command_history += 'E, '
             # Lógica para la acción de editar
-            
+
         elif command[0] == 'Q':
             print("Exiting the program. Goodbye!")
             exit()
@@ -112,13 +113,23 @@ class SpreadSheetController:
 
         elif command[0] == 'C':  # Create
             self.command_history += 'C, '
-            self.spreadSheet_state = True
+            self.spreadSheet_created = True
             new_spreadsheet_name = input("Enter the name for the new spreadsheet: ")
             
             # Verifica si ya existe un spreadsheet con el mismo nombre
             if new_spreadsheet_name in self.spreadSheets and self.spreadSheet != None:
                 raise SpreadSheetException(f"A spreadsheet with the name '{new_spreadsheet_name}' already exists.")
             
-            new_spreadsheet = Spreadsheet(new_spreadsheet_name)
-            self.spreadSheets[new_spreadsheet_name] = new_spreadsheet
-            print(f"Spreadsheet '{new_spreadsheet_name}' created successfully! ")
+            #file path
+            current_directory = os.getcwd()
+            spreadsheet_path = os.path.join(current_directory, f"{new_spreadsheet_name}.s2v")
+            new_spreadsheet = Spreadsheet(spreadsheet_path)
+            self.spreadSheets[spreadsheet_path] = new_spreadsheet
+            print(f"Spreadsheet '{spreadsheet_path}' created successfully! ")
+            self.spreadSheet_state = True
+
+
+
+
+
+           
