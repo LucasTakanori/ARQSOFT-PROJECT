@@ -47,7 +47,6 @@ class Loader:
             try:
                 self.validateFileFormat(filePath)
                 spreadsheet_data = self.loadSpreadsheetData(filePath)
-                print(spreadsheet_data)
                 show.printContentSpreadsheet(spreadsheet_data)
                 #self.displaySpreadsheet(spreadsheet_data)
             except ReadingSpreadsheetException as e:

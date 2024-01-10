@@ -19,6 +19,8 @@ class Saver:
     def validateFileName(self, fileName):
         if not os.path.splitext(fileName)[0]:
             raise SavingSpreadsheetException("Invalid file name.")
+        elif os.path.splitext(fileName)[1].lower() not in ['.s2v', '.txt']:
+            raise SavingSpreadsheetException("Invalid file name.")
 
     def validateDirectory(self, directoryPath):
         if not os.path.exists(directoryPath):
@@ -36,28 +38,25 @@ class Saver:
         print("File saved successfully.")
 
     def run_saver(self, spreadsheet):
-        file_extension = ".s2v" 
+        file_extension = ".s2v"
         file_name = self.promptForFileName(file_extension)
         directory_path = self.promptForDirectory()
-        coord = sorted(set(coord for coord in spreadsheet.get.keys()))
-        max_row = max(int(coord[1:]) for coord in coord)
-
-        #lista de letras de A a Z
-        letras = [chr(letra) for letra in range(ord(coord[0][0]), ord(coord[-1][0]) + 1)]
-
-        spreadsheet_data = []
-        spreadsheet_data = [
-            [
-                str(spreadsheet.cells.get(f"{col}{row}", Cell()).content.getValue()).replace(";", ",") + ";"
-                for col in letras
-            ]
-            for row in range(1, max_row + 1)
-        ]
+        max_row = max(sorted(set(int(key[1:]) for key in spreadsheet.cells.keys())))
 
         if file_name and directory_path:
             try:
                 self.validateFileName(file_name)
                 self.validateDirectory(directory_path)
+                letras = [chr(letra) for letra in range(ord('A'), ord('Z') + 1)]
+
+                spreadsheet_data = [
+                    [
+                        str(spreadsheet.cells.get(f"{col}{row}", Cell()).content.getValue()).replace(";", ",") + ";"
+                        for col in letras
+                    ]
+                    for row in range(1, max_row + 1)
+                ]
+
                 self.saveSpreadsheetData(file_name, directory_path, spreadsheet_data)
                 self.displaySaveConfirmation()
             except SavingSpreadsheetException as e:

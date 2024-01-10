@@ -20,3 +20,9 @@ class ShowContent:
     #     range_list = CellRange(self.name).boundaries_to_coordinates_list()
     #     all_rows = [coord[0] for coord in range_list]
     #     return min(all_rows), max(all_rows) if all_rows else (1, 1)
+            
+    def create_new_spreadsheet(self):
+        pass
+
+    def edit_content():
+        pass
