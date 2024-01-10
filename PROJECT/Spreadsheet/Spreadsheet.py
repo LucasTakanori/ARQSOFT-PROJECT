@@ -2,11 +2,16 @@ import sys
 from pathlib import Path
 
 
-
 current_dir = Path(__file__).resolve().parent
 
+sys.path.append(str(current_dir.parent.parent))
+
+#from PythonProjectAutomaticMarkerForGroupsOf2.SpreadsheetMarkerForStudents.SpreadsheetMarkerForStudents.entities.circular_dependencies_test import CircularDependenciesTest
+from PythonProjectAutomaticMarkerForGroupsOf2.PythonProjectAutomaticMarkerForGroupsOf2.SpreadsheetMarkerForStudents.SpreadsheetMarkerForStudents.entities.circular_dependency_exception import CircularDependencyException
+from PROJECT.Spreadsheet.Content.FormulaContent import FormulaContent
 from collections import OrderedDict
 from PROJECT.Spreadsheet.Cell import Cell
+
 #from Spreadsheet.Cell import Cell
 
 #from Cell import Cell
@@ -18,9 +23,15 @@ class Spreadsheet:
     def __init__(self, name):
         self.name = name
         self.cells = {}
+        self.dependent_cells = {}
+        
 
     def get(self, coordinate):
-        return self.cells.get(coordinate, None)
+        if isinstance(self.cells.get(coordinate).get_content(), FormulaContent): 
+            self.cells.get(coordinate).get_content().calculate_formula(self)
+            return self.cells.get(coordinate, None)
+        else:
+            return self.cells.get(coordinate, None)
     
     def get_values_from_range(self, range):
         range_list = CellRange(range).get_range()
@@ -30,6 +41,8 @@ class Spreadsheet:
                 values.append(self.cells[cell].get_content().get_value())
         return values
     
+
+
     def set(self, coordinate, value): #Introduce a coordinate and the value to this one 
         self.cells[coordinate] = Cell(coordinate, value, self)
         #print("Set cell {} to {}".format(coordinate, value))

@@ -6,8 +6,8 @@ from PROJECT.Formula.EvaluatePostfix import EvaluatePostfix
 class FormulaContent(Content):
     def __init__(self, formula, spreadsheet):
         super().__init__(formula)
-        evaluator = EvaluatePostfix(formula)
-        self.value = evaluator.evaluate(spreadsheet)
+        self.evaluator = EvaluatePostfix(formula)
+        self.value : float = 0.0
         self.formula = formula
 
     def get_value(self) -> float : 
@@ -19,7 +19,12 @@ class FormulaContent(Content):
     def set_value(self, formula: str) -> None:
         self.formula = formula
 
+    def calculate_formula(self, spreadsheet):        
+        self.value = self.evaluator.evaluate(spreadsheet)
+        
+
     def __repr__(self) -> str:
         return f"Formula: {self.formula}, Value: {self.value}"
+    
 
     

@@ -12,7 +12,6 @@ class Cell:
         self.content = None
         self.set_content(value, Spreadsheet)
         print(self.content)
-        self.dependent_cells = set()
 
     def set_content(self, text_input: str, Spreadsheet):
         print(text_input)
