@@ -4,4 +4,8 @@ class Min():
         self.args = args
         
     def calculate_min(self):
-        return min(self.args)
+        try:
+            return min(self.args)
+        except:
+            return 0
+    

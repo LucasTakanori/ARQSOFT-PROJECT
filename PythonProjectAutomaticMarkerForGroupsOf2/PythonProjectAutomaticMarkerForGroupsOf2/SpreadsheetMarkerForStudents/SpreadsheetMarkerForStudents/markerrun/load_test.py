@@ -99,7 +99,7 @@ class LoadTest(SuperClassForTests):
         expected_val=None
         expected=["=1+2","=10/(2+3)","=A1*10-5","=(A5*4)/(A2+A2)","=100/(A5+(A5*A5/5))" \
             ,"=(A5*4)/(A2+A2)+SUMA(1;2;3;4;5)","=(A5*4)/(A2+A2)+SUMA(A1;A2;3;4;5)" \
-            ,"=(A5*4)/(A2+A2)+SUMA(A1;A2;3;4;5;A6:A12)","=(A5*4)/(A2+A2)+SUMA(A1;A2;3;4;5;A6:A12,MIN(A13:A20))"]
+            ,"=(A5*4)/(A2+A2)+SUMA(A1;A2;3;4;5;A6:A12)","=(A5*4)/(A2+A2)+SUMA(A1;A2;3;4;5;A6:A12;MIN(A13:A20))"]
         cell_coords=["B1","C1","D1","E1","F1","G1","H1","I1","J1"]
         print("\tTesting first row of the loaded spreadsheet. Value: " + str(valor))
         try:

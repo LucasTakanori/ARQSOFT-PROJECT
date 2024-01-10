@@ -60,14 +60,13 @@ class Spreadsheet:
         return self.get(coord).get_content().get_value()
     
     def get_cell_formula_expression(self, coord):
-        print('pito',coord)
+        #print(coord)
         return self.get(coord).get_content().get_formula()
     
-    #def save_spreadsheet_to_file(self, s_name_in_user_dir):
-    #    Saver().save(s_name_in_user_dir, self)
-
-    #def load_spreadsheet_from_file(self, s_name_in_user_dir):
-       # return Loader().loadSpreadsheetData(s_name_in_user_dir, self)    
+    def save_spreadsheet_to_file(self, s_name_in_user_dir):
+        pass
+        #Saver().save(s_name_in_user_dir, self)
+   
     
     def load_spreadsheet_from_file(self,  s_name_in_user_dir):
         path = os.path.join(os.getcwd(),s_name_in_user_dir)

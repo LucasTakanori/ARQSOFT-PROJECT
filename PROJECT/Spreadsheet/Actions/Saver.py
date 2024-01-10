@@ -40,27 +40,27 @@ class Saver:
     def displaySaveConfirmation(self):
         print("File saved successfully.")
 
-    def run_saver(self, filename, spreadsheet):
+    def run_saver(self, spreadsheet):
         file_extension = ".s2v"
-        file_name = filename
-        directory_path = current_dir = Path(__file__)#self.promptForDirectory()
-        max_row = max(sorted(set(int(key[1:]) for key in spreadsheet.cells.keys())))
+        file_name = self.promptForFileName(file_extension)
+        directory_path = self.promptForDirectory()
+
+        # Obtener el máximo de las filas o establecerlo en 1 si no hay celdas
+        max_row = max(set(int(key[1:]) for key in spreadsheet.cells.keys()), default=1)
 
         if file_name and directory_path:
-            #try:
-                #self.validateFileName(file_name)
-                #self.validateDirectory(directory_path)
+
+                self.validateFileName(file_name)
+                self.validateDirectory(directory_path)
                 letras = [chr(letra) for letra in range(ord('A'), ord('Z') + 1)]
 
                 spreadsheet_data = [
                     [
-                        str(spreadsheet.cells.get(f"{col}{row}", Cell()).content.getValue()).replace(";", ",") + ";"
+                        str(spreadsheet.cells.get(f"{col}{row}", Cell(f"{col}{row}", "", spreadsheet)).content.get_value()).replace(";", ",") + ";"
                         for col in letras
                     ]
                     for row in range(1, max_row + 1)
                 ]
 
-                self.saveSpreadsheetData(file_name, directory_path, spreadsheet_data)
-                self.displaySaveConfirmation()
-            #except SavingSpreadsheetException as e:
-            #    print(f"Error: {str(e)}")
+
+                self.saveSpreadsheetData(file_name, directory_path,
