@@ -6,11 +6,11 @@ from pathlib import Path
 current_dir = Path(__file__).resolve().parent
 
 from collections import OrderedDict
-#from PROJECT.Spreadsheet.Cell import Cell
-from Spreadsheet.Cell import Cell
+from PROJECT.Spreadsheet.Cell import Cell
+#from Spreadsheet.Cell import Cell
 
 #from Cell import Cell
-from Spreadsheet.CellRange import CellRange
+from PROJECT.Spreadsheet.CellRange import CellRange
 
 sys.path.append(str(current_dir.parent.parent))
 
@@ -31,7 +31,7 @@ class Spreadsheet:
         return values
     
     def set(self, coordinate, value): #Introduce a coordinate and the value to this one 
-        self.cells[coordinate] = Cell(coordinate, value)
+        self.cells[coordinate] = Cell(coordinate, value, self)
         #print("Set cell {} to {}".format(coordinate, value))
 
     def set_cell_content(self, coord, str_content):
@@ -45,3 +45,5 @@ class Spreadsheet:
     
     def get_cell_formula_expression(self, coord):
         return self.get(coord).get_content().get_expression()
+    
+    

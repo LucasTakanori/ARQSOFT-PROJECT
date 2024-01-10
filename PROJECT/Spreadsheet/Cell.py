@@ -1,20 +1,20 @@
-# from PROJECT.Spreadsheet.Content.TextContent import TextContent
-# from PROJECT.Spreadsheet.Content.NumberContent import NumberContent
-# from PROJECT.Spreadsheet.Content.FormulaContent import FormulaContent
+from PROJECT.Spreadsheet.Content.TextContent import TextContent
+from PROJECT.Spreadsheet.Content.NumberContent import NumberContent
+from PROJECT.Spreadsheet.Content.FormulaContent import FormulaContent
 
-from Spreadsheet.Content.TextContent import TextContent
-from Spreadsheet.Content.NumberContent import NumberContent
-from Spreadsheet.Content.FormulaContent import FormulaContent
+#from Spreadsheet.Content.TextContent import TextContent
+#from Spreadsheet.Content.NumberContent import NumberContent
+#from Spreadsheet.Content.FormulaContent import FormulaContent
 
 class Cell:
-    def __init__(self, coordinate, value):
+    def __init__(self, coordinate, value, Spreadsheet):
         self.coordinate = coordinate
         self.content = None
-        self.set_content(value)
+        self.set_content(value, Spreadsheet)
         print(self.content)
         self.dependent_cells = set()
 
-    def set_content(self, text_input: str):
+    def set_content(self, text_input: str, Spreadsheet):
         print(text_input)
         try:
             # Try converting the string to a float
@@ -24,7 +24,7 @@ class Cell:
         except ValueError:
             # If conversion fails, it's not a numeric string
             if text_input.startswith('='): # Check if it starts with '='
-                self.content = FormulaContent(text_input)
+                self.content = FormulaContent(text_input, Spreadsheet)
                 print("formula")
             else:# Otherwise, it's a regular string
                 self.content = TextContent(text_input)

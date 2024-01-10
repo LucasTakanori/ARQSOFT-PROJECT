@@ -23,6 +23,8 @@ class Parser:
 
         while self.current_index < len(self.tokens):
             token = self.next_token()
+            #print('current',token)
+            #print('last',last_token_type)
             if self.is_function(token):
                 if last_token_type in ['operand', 'closing_round_bracket']:
                     raise SyntaxError("Function name cannot follow an operand or closing bracket directly")
@@ -56,7 +58,7 @@ class Parser:
                     raise SyntaxError("Operator in invalid position")
                 last_token_type = 'Infix operator'
             elif token in '+-':
-                if last_token_type not in [None, 'operand', '(','Infix operator']:
+                if last_token_type not in [None, 'operand', '(',')','Infix operator']:
                     raise SyntaxError("Operator in invalid position")
                 last_token_type = 'Prefix operator'
             elif token == '(':
@@ -81,6 +83,7 @@ class Parser:
             raise SyntaxError("Unbalanced parentheses")
 
         return self.tokens
+
 
     def is_coordinate(self, token):
         # A cell coordinate is defined as one or more uppercase letters followed by one or more digits

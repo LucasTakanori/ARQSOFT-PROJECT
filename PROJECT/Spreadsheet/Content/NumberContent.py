@@ -1,5 +1,5 @@
-#from PROJECT.Spreadsheet.Content.Content import Content
-from Spreadsheet.Content.Content import Content
+from PROJECT.Spreadsheet.Content.Content import Content
+#from Spreadsheet.Content.Content import Content
 class NumberContent(Content):
     def __init__(self, number : float):
         super(). __init__(number)

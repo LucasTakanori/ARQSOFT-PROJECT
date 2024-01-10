@@ -1,6 +1,6 @@
-from Spreadsheet.Content.Content import Content
+#from Spreadsheet.Content.Content import Content
 
-#from PROJECT.Spreadsheet.Content.Content import Content
+from PROJECT.Spreadsheet.Content.Content import Content
 
 
 class TextContent(Content):

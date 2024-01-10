@@ -6,7 +6,7 @@ class GeneratePostfix:
         self.output_queue = []
         self.operator_stack = []
         # Update the precedence for ':' and ';'
-        self.operators = {'+': 1, '-': 1, '*': 2, '/': 2}
+        self.operators = {'+': 1, '-': 1, '*': 2, '/': 2, '/-': 2, '*-': 2, '/+':2, '*+':2}
         self.functions = {'SUMA', 'PROMEDIO', 'MAX', 'MIN'}
 
     def precedence(self, op):
@@ -78,6 +78,3 @@ class GeneratePostfix:
         # A cell coordinate is defined as one or more uppercase letters followed by one or more digits
         coordinate_pattern = r'[A-Z]+\d+:[A-Z]+\d+'
         return re.match(coordinate_pattern, token) is not None
-
-
-
