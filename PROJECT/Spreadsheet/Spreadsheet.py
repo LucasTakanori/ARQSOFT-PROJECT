@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -11,6 +12,8 @@ from PythonProjectAutomaticMarkerForGroupsOf2.PythonProjectAutomaticMarkerForGro
 from PROJECT.Spreadsheet.Content.FormulaContent import FormulaContent
 from collections import OrderedDict
 from PROJECT.Spreadsheet.Cell import Cell
+from PROJECT.Spreadsheet.Actions.Loader import Loader
+#from PROJECT.Spreadsheet.Actions.Saver import Saver
 
 #from Spreadsheet.Cell import Cell
 
@@ -57,6 +60,16 @@ class Spreadsheet:
         return self.get(coord).get_content().get_value()
     
     def get_cell_formula_expression(self, coord):
-        return self.get(coord).get_content().get_expression()
+        print('pito',coord)
+        return self.get(coord).get_content().get_formula()
     
+    #def save_spreadsheet_to_file(self, s_name_in_user_dir):
+    #    Saver().save(s_name_in_user_dir, self)
+
+    #def load_spreadsheet_from_file(self, s_name_in_user_dir):
+       # return Loader().loadSpreadsheetData(s_name_in_user_dir, self)    
     
+    def load_spreadsheet_from_file(self,  s_name_in_user_dir):
+        path = os.path.join(os.getcwd(),s_name_in_user_dir)
+        print("loading",s_name_in_user_dir)
+        return Loader().load_s2v_to_spreadsheet(path, self)

@@ -44,6 +44,7 @@ class Parser:
             elif self.is_number(token):
                 # Handle numbers (including decimals)
                 if last_token_type in ['operand', 'closing_round_bracket']:
+                    #print(token)
                     raise SyntaxError("Invalid syntax: number follows an operand or closing bracket without an operator")
                 last_token_type = 'operand'
                 expecting_range = False

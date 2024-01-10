@@ -11,23 +11,23 @@ class Cell:
         self.coordinate = coordinate
         self.content = None
         self.set_content(value, Spreadsheet)
-        print(self.content)
+        #print(self.content)
 
     def set_content(self, text_input: str, Spreadsheet):
-        print(text_input)
+        #print(text_input)
         try:
             # Try converting the string to a float
             # If successful, add Numbercontent
             self.content = NumberContent(float(text_input))
-            print("number")
+            #print("number")
         except ValueError:
             # If conversion fails, it's not a numeric string
             if text_input.startswith('='): # Check if it starts with '='
                 self.content = FormulaContent(text_input, Spreadsheet)
-                print("formula")
+                #print("formula")
             else:# Otherwise, it's a regular string
                 self.content = TextContent(text_input)
-                print("text") 
+                #print("text") 
 
     def get_content(self):
         return self.content
