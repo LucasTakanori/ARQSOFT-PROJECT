@@ -16,7 +16,7 @@ class SpreadSheetController:
         # guardamos una cadena de los comandos que se van ejecutando, ej: "C, E, S, L, ..." 
         # si se quiere Editar(E) y antes se ha Creado(C), se podrá, sino salta error
 
-        print(command)
+        print(" Command Selected: ", command)
         
         if command[0] == 'E': #Edit
             if self.spreadSheet == None:
