@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 import importlib
+import sys
+from pathlib import Path
 
-from ClasesCorrector import SuperClassForTests
+current_dir = Path(__file__).resolve().parent
+sys.path.append(str(current_dir.parent))
+
+from markerrun.ClasesCorrector import SuperClassForTests
 
 class TestRunner:
 

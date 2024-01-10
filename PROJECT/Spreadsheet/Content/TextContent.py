@@ -1,4 +1,7 @@
-from Spreadsheet.Content.Content import Content
+#from Spreadsheet.Content.Content import Content
+
+from PROJECT.Spreadsheet.Content.Content import Content
+
 
 class TextContent(Content):
     def __init__(self, string: str):
