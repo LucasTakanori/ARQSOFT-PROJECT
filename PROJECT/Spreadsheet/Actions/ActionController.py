@@ -4,4 +4,10 @@ from Spreadsheet.Actions.Saver import Saver
 class ActionController:
     def __init__(self) -> None:
         self.loader = Loader()
-        self
+        self.saver = Saver()
+
+    def load_file(self, filename, spreadsheet):
+        self.loader
+
+    def save_file(self, filename, spreadsheet): 
+        self.saver.run_saver(filename, spreadsheet)
