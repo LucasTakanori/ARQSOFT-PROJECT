@@ -23,11 +23,9 @@ class Parser:
 
         while self.current_index < len(self.tokens):
             token = self.next_token()
-            #print(token)
             if self.is_function(token):
                 if last_token_type in ['operand', 'closing_round_bracket']:
                     raise SyntaxError("Function name cannot follow an operand or closing bracket directly")
-                inside_function = True
                 self.function_stack.append(token)
                 last_token_type = 'function'
             elif self.is_coordinate(token):
@@ -38,7 +36,7 @@ class Parser:
                 expecting_range = True  # After a coordinate, a colon for range is valid
             elif token == ';':
                 # Handle semicolon as function argument separator
-                if not self.function_stack or last_token_type in ['operator', 'opening_round_bracket', ';']:
+                if not self.function_stack or last_token_type in ['Infix operator', 'Prefix operator', 'opening_round_bracket', ';']:
                     raise SyntaxError("Invalid use of ';' as argument separator")
                 last_token_type = ';'
             elif self.is_number(token):
@@ -53,10 +51,14 @@ class Parser:
                     raise SyntaxError("Invalid use of ':' for cell range")
                 last_token_type = 'range'
                 expecting_range = False  # Reset the flag as colon is consumed
-            elif token in '+-*/':
-                if last_token_type in [None, 'operator', '(']:
+            elif token in '*/':
+                if last_token_type in [None, 'Infix operator','Prefix operator', '(']:
                     raise SyntaxError("Operator in invalid position")
-                last_token_type = 'operator'
+                last_token_type = 'Infix operator'
+            elif token in '+-':
+                if last_token_type not in [None, 'operand', '(','Infix operator']:
+                    raise SyntaxError("Operator in invalid position")
+                last_token_type = 'Prefix operator'
             elif token == '(':
                 parenthesis_count += 1
                 if last_token_type in ['operand', 'closing_round_bracket']:
@@ -64,7 +66,7 @@ class Parser:
                 last_token_type = '('
             elif token == ')':
                 parenthesis_count -= 1
-                if last_token_type in ['operator', '(']:
+                if last_token_type in ['Infix operator', 'Prefix operator', '(']:
                     raise SyntaxError("')' cannot follow an operator or '('")
                 last_token_type = ')'
                 if self.function_stack:

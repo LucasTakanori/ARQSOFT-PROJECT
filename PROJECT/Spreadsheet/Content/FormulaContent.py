@@ -1,3 +1,4 @@
+#from PROJECT.Spreadsheet.Content.Content import Content
 from Spreadsheet.Content.Content import Content
 
 class FormulaContent(Content):
