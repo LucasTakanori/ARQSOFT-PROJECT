@@ -1,6 +1,6 @@
 import traceback
-from markerrun.ClasesCorrector import SuperClassForTests
-from usecasesmarker.spread_sheet_factory_for_checker import SpreadSheetFactoryForChecker
+from SpreadsheetMarkerForStudents.markerrun.ClasesCorrector import SuperClassForTests
+from SpreadsheetMarkerForStudents.usecasesmarker.spread_sheet_factory_for_checker import SpreadSheetFactoryForChecker
 import os
 
 

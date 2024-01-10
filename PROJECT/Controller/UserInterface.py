@@ -11,16 +11,16 @@ class UserInterface:
     def main_menu(self):
         print("\t\tMain menu:")
         print("Now yo can choice with the next commands: ")
-        print("\t1. If you want to edit the spreadsheet, press E.")
-        print("\t--> Info del edit.... ")
+        print("\t1. If you want to edit a cell, press E.")
+        print("\t--> EDIT CELL:  ")
         print("\t2. If you want to save the spreadsheet, press S.")
         print("\t--> Info del save.... ")
         print("\t3. If you want to read commands file, press RF.")
-        print("\t--> Info del read commands.... ")
+        print("\t--> Read commands from spreadsheet, show it.")
         print("\t4. If you want to load an s2v file, press L.")
-        print("\t--> Info del load.... ")
+        print("\t--> LOAD spreadsheet you select")
         print("\t5. If you want to create a new spreadsheet, press C.")
-        print("\t--> Info of create.... ")
+        print("\t--> Create a new spreadsheet.  ")
         print("\t6. If you want to quit, press Q.")
 
         

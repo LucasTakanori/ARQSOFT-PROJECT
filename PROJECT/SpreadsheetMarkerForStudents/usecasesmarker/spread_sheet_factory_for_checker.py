@@ -11,8 +11,9 @@ current_dir = Path(__file__).resolve().parent
 
 
 sys.path.append(str(current_dir.parent.parent.parent.parent.parent))
-from PROJECT.Spreadsheet.Spreadsheet import Spreadsheet
-from usecasesmarker.spreadsheet_controller_for_checker import ISpreadsheetControllerForChecker
+#from PROJECT.Spreadsheet.Spreadsheet import Spreadsheet
+from Spreadsheet.Spreadsheet import Spreadsheet
+from SpreadsheetMarkerForStudents.usecasesmarker.spreadsheet_controller_for_checker import ISpreadsheetControllerForChecker
 
 class SpreadSheetFactoryForChecker:
 

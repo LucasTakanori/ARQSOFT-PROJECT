@@ -1,7 +1,8 @@
-from PROJECT.Spreadsheet.Content.Content import Content
-from PROJECT.Formula.EvaluatePostfix import EvaluatePostfix
-#from Formula.EvaluatePostfix import EvaluatePostfix
-#from Spreadsheet.Content.Content import Content
+#from PROJECT.Spreadsheet.Content.Content import Content
+#from PROJECT.Formula.EvaluatePostfix import EvaluatePostfix
+
+from Formula.EvaluatePostfix import EvaluatePostfix
+from Spreadsheet.Content.Content import Content
 
 class FormulaContent(Content):
     def __init__(self, formula, spreadsheet):

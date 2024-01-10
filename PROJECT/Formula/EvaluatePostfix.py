@@ -1,15 +1,18 @@
-#from Formula.Parser import Parser
-#from Formula.GeneratePostfix import GeneratePostfix
-#from Formula.Tokenizer import Tokenizer
-#from Formula.Process.SUMA import SUMA
+from Formula.Parser import Parser
+from Formula.GeneratePostfix import GeneratePostfix
+from Formula.Process.Max import Max
+from Formula.Process.Min import Min
+from Formula.Process.Promedio import Promedio
+from Formula.Tokenizer import Tokenizer
+from Formula.Process.Suma import  Suma
 
-from PROJECT.Formula.Parser import Parser
-from PROJECT.Formula.GeneratePostfix import GeneratePostfix
-from PROJECT.Formula.Process.Max import Max
-from PROJECT.Formula.Process.Min import Min
-from PROJECT.Formula.Process.Promedio import Promedio
-from PROJECT.Formula.Tokenizer import Tokenizer
-from PROJECT.Formula.Process.Suma import  Suma
+# from PROJECT.Formula.Parser import Parser
+# from PROJECT.Formula.GeneratePostfix import GeneratePostfix
+# from PROJECT.Formula.Process.Max import Max
+# from PROJECT.Formula.Process.Min import Min
+# from PROJECT.Formula.Process.Promedio import Promedio
+# from PROJECT.Formula.Tokenizer import Tokenizer
+# from PROJECT.Formula.Process.Suma import  Suma
 
 
 import re
