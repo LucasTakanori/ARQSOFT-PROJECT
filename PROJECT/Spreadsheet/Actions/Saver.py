@@ -1,66 +1,52 @@
 import os
-import argparse
-#from SpreadsheetMarkerForStudents.usecasesmarker.saving_spreadsheet_exception import SavingSpreadsheetException
-from Spreadsheet.Cell import Cell
-import sys
-from pathlib import Path
+from PROJECT.Spreadsheet.Content.FormulaContent import FormulaContent
 
+from PROJECT.Spreadsheet.Coordinate import Coordinate
 
 class Saver:
     def __init__(self):
         pass
 
-    def promptForFileName(self, file_extension):
-        file_name = input(f"Enter the file name: ")
-        file_name += file_extension
-        return file_name
+    def retrieve_data_from_spreadsheet(spreadsheet):
+        result = {}
+        for coord in spreadsheet.cells:
+            if isinstance(spreadsheet.cells.get(coord).get_content(), FormulaContent): 
+                cell_content = spreadsheet.get_cell_formula_expression(coord)
+            else:
+                cell_content = spreadsheet.cells.get(coord).get_content().get_value()
+                if isinstance(cell_content, float) and cell_content == int(cell_content):
+                    cell_content = int(cell_content)
 
-    def promptForDirectory(self):
-        directory_path = input("Enter the directory path: ")
-        return directory_path
+            cell_content = str(cell_content).replace(';', ',')    
+            result[coord] = cell_content
+        return result
 
-    #def validateFileName(self, fileName):
-        #if not os.path.splitext(fileName)[0]:
-            #raise SavingSpreadsheetException("Invalid file name.")
-        #elif os.path.splitext(fileName)[1].lower() not in ['.s2v', '.txt']:
-            #raise SavingSpreadsheetException("Invalid file name.")
+    @staticmethod
+    def save_dict_to_s2v(filename, data_dict):
+        row_dimensions = Saver.get_spreadsheet_row_dimensions(data_dict)
+        grid = [["" for _ in range(row_dimensions[row])] for row in sorted(row_dimensions.keys())]
 
-    #def validateDirectory(self, directoryPath):
-    #    if not os.path.exists(directoryPath):
-    #        #raise SavingSpreadsheetException("Invalid directory path.")
+        for coord, cell_value in data_dict.items():
+            row, col = Coordinate.coordinate_to_xy(coord)
+            grid[row-1][col-1] = cell_value  # Adjust for zero-indexing
 
-    def saveSpreadsheetData(self, fileName, directoryPath, spreadsheetData):
-        #try:
-            with open(os.path.join(directoryPath, fileName), 'w') as file:
-                for row in spreadsheetData:
-                    file.write(';'.join(map(str, row)) + '\n')
-        #except Exception as e:
-            #raise SavingSpreadsheetException(str(e))
+        with open(filename, 'w') as file:
+            for row in grid:
+                file.write(';'.join(row))
+                file.write('\n')
 
-    def displaySaveConfirmation(self):
-        print("File saved successfully.")
+    def save_spreadsheet_to_file(self, filename, spreadsheet):
+        data_dict = Saver.retrieve_data_from_spreadsheet(spreadsheet)
+        Saver.save_dict_to_s2v(filename, data_dict)
 
-    def run_saver(self, spreadsheet):
-        file_extension = ".s2v"
-        file_name = self.promptForFileName(file_extension)
-        directory_path = self.promptForDirectory()
+    @staticmethod
+    def get_spreadsheet_row_dimensions(data_dict):
+        row_dimensions = {}
+        for coord in data_dict.keys():
+            row, col = Coordinate.coordinate_to_xy(coord)
+            if row not in row_dimensions:
+                row_dimensions[row] = col
+            else:
+                row_dimensions[row] = max(row_dimensions[row], col)
+        return row_dimensions
 
-        # Obtener el máximo de las filas o establecerlo en 1 si no hay celdas
-        max_row = max(set(int(key[1:]) for key in spreadsheet.cells.keys()), default=1)
-
-        if file_name and directory_path:
-
-                self.validateFileName(file_name)
-                self.validateDirectory(directory_path)
-                letras = [chr(letra) for letra in range(ord('A'), ord('Z') + 1)]
-
-                spreadsheet_data = [
-                    [
-                        str(spreadsheet.cells.get(f"{col}{row}", Cell(f"{col}{row}", "", spreadsheet)).content.get_value()).replace(";", ",") + ";"
-                        for col in letras
-                    ]
-                    for row in range(1, max_row + 1)
-                ]
-
-
-                self.saveSpreadsheetData(file_name, directory_path,
