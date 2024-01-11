@@ -7,7 +7,7 @@ class FormulaContent(Content):
     def __init__(self, formula, spreadsheet):
         super().__init__(formula)
         self.evaluator = EvaluatePostfix(formula)
-        self.value : float = 0.0
+        self.value : self.evaluator.evaluate(spreadsheet)#float = None
         self.formula = formula
 
     def get_value(self) -> float : 

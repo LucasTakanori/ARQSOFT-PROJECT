@@ -12,6 +12,7 @@ from PythonProjectAutomaticMarkerForGroupsOf2.PythonProjectAutomaticMarkerForGro
 from PROJECT.Spreadsheet.Content.FormulaContent import FormulaContent
 from collections import OrderedDict
 from PROJECT.Spreadsheet.Cell import Cell
+from PROJECT.Spreadsheet.Coordinate import Coordinate
 from PROJECT.Spreadsheet.Actions.Loader import Loader
 from PROJECT.Spreadsheet.Actions.Saver import Saver
 #from PROJECT.Spreadsheet.Actions.Saver import Saver
@@ -20,12 +21,11 @@ from PROJECT.Spreadsheet.Actions.Saver import Saver
 
 #from Cell import Cell
 from PROJECT.Spreadsheet.CellRange import CellRange
-
+from rich import print
 sys.path.append(str(current_dir.parent.parent))
 
 class Spreadsheet:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
         self.cells = {}
         self.dependent_cells = {}
         
@@ -72,3 +72,40 @@ class Spreadsheet:
         path = os.path.join(os.getcwd(),s_name_in_user_dir)
         print("loading",path)
         return Loader().load_s2v_to_spreadsheet(path, self)
+
+
+    def __str__(self):
+        # Determine the size of the spreadsheet based on the cell keys
+        max_row, max_col = 0, 0
+        for coord in self.cells:
+            row, col = Coordinate.coordinate_to_xy(coord)
+            max_row = max(max_row, row)
+            max_col = max(max_col, col)
+
+        # Create a string representation of the spreadsheet
+        result = []
+
+        # Header with column letters
+        header = "\t" + "\t".join(chr(64 + col_num) for col_num in range(1, max_col + 1))
+        result.append(header)
+
+        # Iterate over each cell in the rectangular matrix
+        for row_num in range(1, max_row + 1):
+            row_values = [str(row_num)]
+            for col_num in range(1, max_col + 1):
+                coord = Coordinate.to_spreadsheet_format(row_num, col_num)
+                if(coord in self.cells):
+                    cell = self.get(coord)
+                output = ""
+                if isinstance(cell.get_content(), FormulaContent): 
+                    output = str(cell.get_content().get_formula())
+                    #print(cell.get_content().get_value())
+                    if cell.get_content().get_value() is not None:
+                        output += '=' + str(cell.get_content().get_value())
+                else:
+                    output = str(cell.get_content().get_value())
+                row_values.append(output)
+            result.append('\t'.join(row_values))
+
+        return '\n'.join(result)
+

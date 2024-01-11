@@ -1,5 +1,11 @@
-from Controller.SpreadsheetController import SpreadSheetController
-from Exceptions.SpreadsheetException import SpreadSheetException
+import sys
+import pathlib
+
+current_dir = pathlib.Path(__file__).resolve().parent
+sys.path.append(str(current_dir.parent))
+
+from PROJECT.Exceptions.SpreadsheetException import SpreadSheetException
+from PROJECT.Controller.SpreadsheetController import SpreadSheetController
 
 if __name__ == "__main__":
     spreadsheetcontroller = SpreadSheetController()

@@ -27,7 +27,7 @@ class SpreadSheetFactoryForChecker:
 
     def create_spreadsheet_controller() -> ISpreadsheetControllerForChecker:
         #REPLACE THE FOLLOWING CODE!!!
-        return Spreadsheet('test')
+        return Spreadsheet()
         # raise Exception("SpreadsheetFactoryForChecker::" \
         #                 + "create_spreadsheet_controller(). You MUST implement the code of " \
         #                 + "this method in this class. The code MUST create a class that " \
