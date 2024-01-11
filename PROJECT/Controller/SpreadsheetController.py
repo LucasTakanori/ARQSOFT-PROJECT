@@ -38,7 +38,7 @@ class SpreadSheetController:
         self.spreadsheet = Spreadsheet(spreadsheet_id)
 
     def applyCommand(self, command):
-        
+        print("\n\n")
         if command[0] == 'C':  # Create
             self.command_history += 'C, '
             self.spreadsheet_open = True
