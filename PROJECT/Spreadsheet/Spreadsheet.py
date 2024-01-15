@@ -94,17 +94,20 @@ class Spreadsheet:
             row_values = [str(row_num)]
             for col_num in range(1, max_col + 1):
                 coord = Coordinate.to_spreadsheet_format(row_num, col_num)
+                #print(coord)
                 if(coord in self.cells):
                     cell = self.get(coord)
-                output = ""
-                if isinstance(cell.get_content(), FormulaContent): 
-                    output = str(cell.get_content().get_formula())
-                    #print(cell.get_content().get_value())
-                    if cell.get_content().get_value() is not None:
-                        output += '=' + str(cell.get_content().get_value())
+                    if isinstance(cell.get_content(), FormulaContent): 
+                        output = str(cell.get_content().get_formula())
+                        #print(cell.get_content().get_value())
+                        if cell.get_content().get_value() is not None:
+                            output += '=' + str(cell.get_content().get_value())
+                    else:
+                        output = str(cell.get_content().get_value())
                 else:
-                    output = str(cell.get_content().get_value())
+                    output = ""
                 row_values.append(output)
+                output = ""
             result.append('\t'.join(row_values))
 
         return '\n'.join(result)
